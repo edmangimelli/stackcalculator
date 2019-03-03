@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public class Number {
-  private float value;
+  private double value;
   private boolean valid;
 
   public Number(String s) {
@@ -13,6 +13,6 @@ public class Number {
     }
   }
 
-  public float value() {return value;}
+  public double value() {return value;}
   public boolean isValid() {return valid;}
 }

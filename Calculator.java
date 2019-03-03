@@ -3,7 +3,7 @@ import java.util.Stack;
 import java.util.Arrays;
 
 public class Calculator {
-  static Stack<Float> stack = new Stack<Float>();
+  static Stack<Double> stack = new Stack<Double>();
   static Scanner reader = new Scanner(System.in);
 
   public static void main(String[] args) {
@@ -18,6 +18,7 @@ public class Calculator {
     TwoValueCommand multiplication = (a, b) -> a * b;
     TwoValueCommand division = (a, b) -> a / b;
     TwoValueCommand modulo = (a, b) -> a % b;
+    TwoValueCommand exponent = (a, b) -> Math.pow(a, b);
     switch (s) {
     case "+": return pushTwoValueCommand(addition);
     case "-": return pushTwoValueCommand(subtraction);
@@ -26,11 +27,12 @@ public class Calculator {
     case "%": return pushTwoValueCommand(subtraction);
     case "!":
       String newCommand = "";
-      float n = stack.peek() - 1;
-      for (float i = n; i > 0; --i) newCommand += "d 1 - -1 * ";
-      for (float i = n; i > 0; --i) newCommand += "* ";
+      double n = stack.peek() - 1;
+      for (double i = n; i > 0; --i) newCommand += "d 1 - -1 * ";
+      for (double i = n; i > 0; --i) newCommand += "* ";
       parseLine(newCommand, false);
       return true;
+    case "^": return pushTwoValueCommand(exponent);
     case "d": stack.push(stack.peek()); return true;
     case "c": stack.clear(); return true;
     case "q": return false;
@@ -39,14 +41,14 @@ public class Calculator {
   }
 
   public static boolean pushTwoValueCommand(TwoValueCommand command) {
-    float a = stack.pop();
-    float b = stack.pop();
+    double a = stack.pop();
+    double b = stack.pop();
     stack.push(command.calculate(a, b));
     return true;
   }
 
   public static String numberToString(Object o) {
-    String s = Float.toString((float)o);
+    String s = Double.toString((double)o);
     int neg2 = s.length() - 2;
     if (s.substring(neg2).equals(".0"))
       return s.substring(0, neg2);
