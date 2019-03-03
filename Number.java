@@ -13,6 +13,19 @@ public class Number {
     }
   }
 
+  public Number(double d) {
+    value = d;
+    valid = true;
+  }
+
   public double value() {return value;}
   public boolean isValid() {return valid;}
+  public String toString() {
+    String s = Double.toString(value);
+    int neg2 = s.length() - 2;
+    if (s.substring(neg2).equals(".0"))
+      return s.substring(0, neg2);
+    return s;
+  }
+
 }
